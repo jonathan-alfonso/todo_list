@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block page_content %}
+    {% language 'fr' %}
+        {% get_current_language as LC %}
+        <p>Current language: {{ LC }}</p>
+        {% translate "Welcome to my page" %}
+    {% endlanguage %}
+    <div>
+        <h3>Éditer liste : </h3>
+        <h5>{{ todo_list.title | upper }}</h5>
+    </div>
+    <ul>
+    {% for todo in object_list %}
+        <li>
+            <div>
+                <div role="button" onclick="location.href='#'">
+                    {{ todo.title }}
+                    {% language 'fr' %}
+                        (Fin {{ todo.due_date | date:"l d F Y" }})
+                    {% endlanguage %}
+                </div>
+            </div>
+        </li>
+        {% empty %}
+        <p>Il n'y a pas de tâche dans cette liste.</p>
+    {% endfor %}
+    </ul>
+    <p>
+        <input
+                value="Ajouter une tâche"
+                type="button"
+                onclick="location.href='#'"
+        >
+    </p>
+{% endblock page_content %}
